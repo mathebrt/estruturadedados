@@ -1,0 +1,77 @@
+--abaixo podemos ver na pratica um script em c usando o comando push
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 100
+
+typedef struct {
+    int items[MAX];
+    int top;
+} Stack;
+
+// Inicializa a pilha
+void initStack(Stack *s) {
+    s->top = -1;
+}
+
+// Verifica se a pilha está cheia
+int isFull(Stack *s) {
+    return s->top == MAX - 1;
+}
+
+// Verifica se a pilha está vazia
+int isEmpty(Stack *s) {
+    return s->top == -1;
+}
+
+// Adiciona um elemento à pilha
+void push(Stack *s, int newItem) {
+    if (isFull(s)) {
+        printf("Stack is full. Cannot push %d\n", newItem);
+    } else {
+        s->items[++(s->top)] = newItem;
+        printf("Pushed %d to stack.\n", newItem);
+    }
+}
+
+// Remove um elemento da pilha
+int pop(Stack *s) {
+    if (isEmpty(s)) {
+        printf("Stack is empty. Cannot pop.\n");
+        return -1; // Retorna um valor inválido indicando erro
+    } else {
+        return s->items[(s->top)--];
+    }
+}
+
+// Função para exibir os elementos da pilha
+void display(Stack *s) {
+    if (isEmpty(s)) {
+        printf("Stack is empty.\n");
+    } else {
+        printf("Stack elements: ");
+        for (int i = 0; i <= s->top; i++) {
+            printf("%d ", s->items[i]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    Stack s;
+    initStack(&s);
+
+    push(&s, 10);
+    push(&s, 20);
+    push(&s, 30);
+    
+    display(&s);
+
+    printf("Popped element: %d\n", pop(&s));
+    printf("Popped element: %d\n", pop(&s));
+
+    display(&s);
+
+    return 0;
+}
