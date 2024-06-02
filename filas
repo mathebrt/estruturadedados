@@ -1,0 +1,56 @@
+--aqui temos um exemplo de código em c que implementa uma pilha stack para reforçar o conceito de LIFO
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 100
+
+typedef struct {
+    int items[MAX];
+    int top;
+} Stack;
+
+void initStack(Stack *s) {
+    s->top = -1;
+}
+
+int isFull(Stack *s) {
+    return s->top == MAX - 1;
+}
+
+int isEmpty(Stack *s) {
+    return s->top == -1;
+}
+
+void push(Stack *s, int newItem) {
+    if (isFull(s)) {
+        printf("Stack is full. Cannot push %d\n", newItem);
+    } else {
+        s->items[++(s->top)] = newItem;
+        printf("Pushed %d to stack.\n", newItem);
+    }
+}
+
+int pop(Stack *s) {
+    if (isEmpty(s)) {
+        printf("Stack is empty. Cannot pop.\n");
+        return -1;
+    } else {
+        return s->items[(s->top)--];
+    }
+}
+
+int main() {
+    Stack s;
+    initStack(&s);
+
+    push(&s, 10);
+    push(&s, 20);
+    push(&s, 30);
+
+    printf("Popped element: %d\n", pop(&s));
+    printf("Popped element: %d\n", pop(&s));
+    printf("Popped element: %d\n", pop(&s));
+
+    return 0;
+}
